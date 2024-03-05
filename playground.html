@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenan</title>
+    <link href='https://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Estonia" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+<body>
+    <div id="page">
+      <div id="onboarding" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+        <div class="container text-center">
+          <img style="position: absolute; right: 0; top: 0" id="onboarding-top-right-flower" src="assets/flow-top-right.svg">
+          <img style="position: absolute; left: -25px; top:0" id="onboarding-top-left-flower" src="assets/flow-top-left.svg">
+          <div id="invitation-message">
+            <div class="col-md-16 col-md-offset-2 text-center custom-heading animate-box">
+              <h2>Undangan Pernikahan</h2>
+              <img src="assets/flow-bottom.svg" alt="" class="couple-separator">
+            </div>
+            <div class="col-md-16 col-md-offset-2 text-center custom-heading animate-box">
+              <h3>Yuda & Shintya</h3>
+            </div>
+          </div>
+          <p style="color: #828282; margin-top: 16px;">Dear my beloved friend <span id="friend-name"></span>, kami berharap Anda menjadi bagian dari hari istimewa kami!</p>
+          <button type="button" class="btn custom-btn" id="open-invitation-btn">
+              <i class="fas fa-envelope-open" style="margin-right: 4px;"></i> Buka undangan
+          </button>
+        </div>
+        <img style="position: absolute; bottom: 0"; id="onboarding-footer-flower" src="assets/flow-bottom-footer.svg">
+        </div>
+      </div>
+      <div id="content" style="display: none;">
+        <h2>RSVP</h2>
+        <form id="invitationForm">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="attendance">Will you attend?</label>
+            <select id="attendance" name="attendance" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <label for="message">Leave a message:</label>
+            <textarea id="message" name="message" rows="4" cols="50" required></textarea>
+            <button type="submit">Submit RSVP</button>
+        </form>
+        <ul id="guestList"></ul>
+      </div>
+    </div>
+    <div id="youtube-player" style="display: none;"></div>
+    <!-- <iframe id="youtube-player" width="560" height="315" src="https://www.youtube.com/embed/21LP0zordcI?autoplay=1&mute=0&controls=0" frameborder="0" allowfullscreen></iframe>
+    <script src="https://www.youtube.com/iframe_api"></script> -->
+     <!-- The <div> element where the YouTube player will be embedded -->
+    <!-- Include the YouTube iframe API script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- Carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="js/jquery.countTo.js"></script>
+    <!-- Stellar -->
+    <script src="js/jquery.stellar.min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/magnific-popup-options.js"></script>
+    <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script> -->
+    <script src="js/simplyCountdown.js"></script>
+    <!-- Main -->
+    <script src="js/main.js"></script>
+    <script>
+      // Function to extract friend names from URL parameter
+      function getFriendNamesFromURL() {
+          // Get the full URL of the page
+          var url = window.location.href;
+          // Get the value of the 'to' parameter from the URL
+          var params = new URLSearchParams(url.split('?')[1]);
+          var toParam = params.get('to');
+          // Split the value of 'to' parameter by '+' to get individual names
+          var names = toParam.split(' ');
+          // Replace any hyphens or underscores with spaces and capitalize the first letter of each name
+          names = names.map(function(name) {
+              return name.replace(/[-_]/g, ' ').replace(/\b\w/g, function(match) {
+                  return match.toUpperCase();
+              });
+          });
+          // console.log(names.join(' and '));
+          return names.join(' & ');
+      }
+
+      // Function to update the invitation message with friend names
+      function updateInvitationMessage() {
+          var friendNames = getFriendNamesFromURL();
+          console.log(friendNames)
+          // Update the HTML text with the friend names
+          document.getElementById('friend-name').textContent = friendNames;
+      }
+      updateInvitationMessage();
+        // RSVP form submission
+      const postDataURL = 'https://script.google.com/macros/s/AKfycbxzXmwEOWHNiZiYh5bV4GtxLKALn5DAbniWm__nFJabYlMTBIOhqVTtktirhmCfOctpYQ/exec?action=saveData';
+      const getDataURL = 'https://script.google.com/macros/s/AKfycbxzXmwEOWHNiZiYh5bV4GtxLKALn5DAbniWm__nFJabYlMTBIOhqVTtktirhmCfOctpYQ/exec/exec';
+      function fetchGuestList() {
+          fetch(getDataURL, {
+            method: 'GET',
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              return response.json();
+          })
+          .then(data => {
+              const guestList = document.getElementById('guestList');
+              guestList.innerHTML = '';
+              data.forEach(item => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = `Name: ${item.name}, Attendance: ${item.attendance}, Message: ${item.message}`;
+                  guestList.appendChild(listItem);
+              });
+          })
+          .catch(error => console.error('Error fetching guest list:', error));
+      }    
+      fetchGuestList();
+
+      document.getElementById('open-invitation-btn').addEventListener('click', function(e) {
+        document.getElementById('onboarding').style.display = 'none'
+        document.getElementById('content').style.display = 'block'
+        player.playVideo();
+      })
+
+      document.getElementById('invitationForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const formData = new FormData(document.getElementById('invitationForm'));
+          // Prepare data
+          const postData = {};
+          for (const [key, value] of formData.entries()) {
+              postData[key] = value;
+          }
+
+          // Send data to Google Apps Script
+          fetch(
+            postDataURL, { 
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              mode: 'no-cors',
+              body: JSON.stringify(postData)
+            },
+          ).then(response => {
+              fetchGuestList();
+          })
+          .catch(error => console.error('Error!', error));
+      });
+      
+      document.addEventListener('DOMContentLoaded', fetchGuestList);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+          console.log('YouTube iframe API ready');
+          // Create a new YouTube player
+          player = new YT.Player(
+            'youtube-player', 
+            {
+              height: '0',
+              width: '0',
+              videoId: 'jukzhAsEfWs',
+              playerVars: {
+                  'autoplay': 0,
+                  'mute': 0,
+                  'controls': 1
+              },
+              events: {
+                  'onReady': onPlayerReady,
+                  'onError': onPlayerError
+              },
+            },
+          );
+      }
+    </script>
+</body>
+</html>
