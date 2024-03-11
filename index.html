@@ -43,10 +43,63 @@
         </div>
       </div>
       <div id="content" style="display: none; text-align: center;">
-        <div class="container text-center">
-          <img style="position: absolute; right: 0; top: 0" id="onboarding-top-right-flower" src="assets/flow-top-right.svg">
-          <img style="position: absolute; left: -25px; top:0" id="onboarding-top-left-flower" src="assets/flow-top-left.svg">
-          Cooming soon :)
+        <div class="header">
+          <div class="container">
+            <img style="position: absolute; right: 0; top: 0" id="onboarding-top-right-flower" src="assets/flow-top-right.svg">
+            <img style="position: absolute; left: -25px; top:0" id="onboarding-top-left-flower" src="assets/flow-top-left.svg">
+            <div id="invitation-message">
+              <div class="col-md-16 col-md-offset-2 text-center custom-heading animate-box">
+                <h2>The Wedding of</h2>
+              </div>
+              <img src="assets/main-hero.jpg" class="rounded-circle" alt="Cinque Terre" style=" width: 120px;">
+              <div class="col-md-16 col-md-offset-2 text-center custom-heading animate-box">
+                <h3>Yuda & Shintya</h3>
+                <p style="color: #828282; margin-top: 16px;">Kami berharap Anda menjadi bagian dari hari istimewa kami!</p>
+                <div class="simply-countdown simply-countdown-wedding"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="the-couple" style="background-color: white;">
+          <img class="the-couple-flower-left" style="position: absolute;" src="assets/flow-left.svg">
+          <img class="the-couple-flower-right" style="position: absolute;" src="assets/flow-right.svg">
+          <div class="container text-center">
+            <div class="row">
+              <div class="col-md-16 col-md-offset-2 text-center animate-box">
+                <h2>Salam sejahtera bagi kita semua.</h2>
+                <p style="color: #bf9b73">Tanpa mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta Kerabat sekalian untuk menghadiri acara pernikahan kami:</p>
+              </div>
+            </div>
+            <div class="couple-wrap animate-box">
+              <div class="couple-half">
+                <div class="groom">
+                  <img src="assets/hero.jpg" alt="groom" style="object-fit: cover;">
+                </div>
+                <div class="desc-groom">
+                  <h3>Yuda Oktavian Krisendi</h3>
+                  <p><span style="color: #bf9b73">Putra Kedua dari</span><br>
+                    <span class="parents-font">Bapak Edy Subagyo</span>
+                    <br>
+                    <span class="parents-font">Ibu Ismi Kristanti</span>
+                  </p>
+                </div>
+              </div>
+              <p class="heart text-center"><i class="fas fa-heart"></i></p>
+              <div class="couple-half">
+                <div class="bride">
+                  <img src="assets/hero.jpg" alt="groom" style="object-fit: cover;">
+                </div>
+                <div class="desc-bride">
+                  <h3>Shintya Asih Angelita Tampubolon</h3>
+                  <p><span style="color: #bf9b73">Putri Keempat dari</span><br>
+                    <span class="parents-font">Bapak Martua Hasoloan Tampubolon</span>
+                    <br>
+                    <span class="parents-font">Ibu Ester Lamrita Tobing</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -78,6 +131,21 @@
     <!-- Main -->
     <script src="js/main.js"></script>
     <script>
+      day = 29; month = 6; year = 2024;
+      hour = 8; minute = 0;
+      var d = new Date(year, month, day, hour, minute, 0, 0);
+
+      simplyCountdown('.simply-countdown-wedding', {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        day: d.getDate(),
+        hour: d.getHours(),
+        minutes: 0, // Default is 0 [0-59] integer
+        seconds: 0, // Default is 0 [0-59] integer
+        countUp: true
+        // enableUtc: true
+      });
+
       // Function to extract friend names from URL parameter
       function getFriendNamesFromURL() {
           // Get the full URL of the page
@@ -110,7 +178,7 @@
         console.log("open invitation")
         document.getElementById('onboarding').style.display = 'none'
         document.getElementById('content').style.display = 'block'
-        // player.playVideo();
+        player.playVideo();
       })
 
       var player;
