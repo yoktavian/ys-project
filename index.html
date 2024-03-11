@@ -34,7 +34,7 @@
               <h3>Yuda & Shintya</h3>
             </div>
           </div>
-          <p style="color: #828282; margin-top: 16px;">Dear my beloved friend <span id="friend-name"></span>, kami berharap Anda menjadi bagian dari hari istimewa kami!</p>
+          <p style="color: #828282; margin-top: 16px;">Dear my beloved friend<span id="friend-name"></span>, kami berharap Anda menjadi bagian dari hari istimewa kami!</p>
           <button type="button" class="btn custom-btn" id="open-invitation-btn">
               <i class="fas fa-envelope-open" style="margin-right: 4px;"></i> Buka undangan
           </button>
@@ -83,6 +83,8 @@
           // Get the full URL of the page
           var url = window.location.href;
           // Get the value of the 'to' parameter from the URL
+          if (url.includes("?") == false) return ""
+
           var params = new URLSearchParams(url.split('?')[1]);
           var toParam = params.get('to');
           // Split the value of 'to' parameter by '+' to get individual names
@@ -93,7 +95,7 @@
                   return match.toUpperCase();
               });
           });
-          return names.join(' & ');
+          return " " +names.join(' & ');
       }
 
       // Function to update the invitation message with friend names
@@ -105,9 +107,10 @@
       updateInvitationMessage();
 
       document.getElementById('open-invitation-btn').addEventListener('click', function(e) {
+        console.log("open invitation")
         document.getElementById('onboarding').style.display = 'none'
         document.getElementById('content').style.display = 'block'
-        player.playVideo();
+        // player.playVideo();
       })
 
       var player;
